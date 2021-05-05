@@ -78,7 +78,27 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
+displayMovements(
+  account1.movements
+); /*
+// Jonas method
+const checkDogs = function (dogsJulia, dogsKate) {
+  const dogsJuliaCorrected = dogsJulia.slice();
+  dogsJuliaCorrected.splice(0, 1);
+  dogsJuliaCorrected.splice(-2);
+  const dogs = dogsJuliaCorrected.concat(dogsKate);
+
+  dogs.forEach(function (dog, i) {
+    if (dog >= 3) {
+      console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old.`);
+    } else {
+      console.log(`Dog number ${i + 1} is still a puppy`);
+    }
+  });
+};
+checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+*/
 
 // Lec 145 Creating DOM Elements ^
 // Lec 144 PROJECT: "Bankist" App (intro about project)
@@ -171,4 +191,25 @@ console.log([...arr, ...arr2]);
 // JOIN
 console.log(letters.join(' - '));
 */
-//
+/*
+// Lec 146 Coding Challenge 1
+
+const checkDogs = function (arr1, arr2) {
+  const dogsJulia = arr1;
+  const dogsKate = arr2;
+  const shallowJulia = dogsJulia.splice(1, 2);
+  const combinedArray = shallowJulia.concat(dogsKate);
+  combinedArray.forEach(function (age, i) {
+    if (age < 3) {
+      console.log(`Dog number ${i + 1} is still a puppy`);
+    } else {
+      console.log(`Dog number ${i + 1} is an adult, and is ${age} years old.`);
+    }
+  });
+};
+console.log(`----------------TEST DATA 1--------------`);
+checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+console.log(`----------------TEST DATA 2--------------`);
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+*/
+// Lec 147 Data Transformations: map, filter, reduce.
