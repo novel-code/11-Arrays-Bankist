@@ -59,17 +59,58 @@ const inputTransferTo = document.querySelector('.form__input--to');
 const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
-const inputClosePin = document.querySelector('.form__input--pin');
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
+const inputClosePin = document.querySelector(
+  '.form__input--pin'
+); /*
+// Lec 143 forEach with Maps and Sets
+// Map
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+// Set
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}: ${value}`);
+});
+*/
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// LECTURES
+/*
+// Lec 142 Looping Arrays: forEach
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// for (const movement of movements) {
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+console.log('------------------FOR EACH------------------');
+// doesn't have continue or break statements.
+movements.forEach(function (movement, index, array) {
+  if (movement > 0) {
+    console.log(`Movement ${index + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${index + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+});
+// 0: funtion(200)
+// 1: funtion(450)
+// 2: funtion(400)
+// ...
+*/
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -108,27 +149,4 @@ console.log([...arr, ...arr2]);
 // JOIN
 console.log(letters.join(' - '));
 */
-// Lec 142 Looping Arrays: forEach
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// for (const movement of movements) {
-for (const [i, movement] of movements.entries()) {
-  if (movement > 0) {
-    console.log(`Movement ${i + 1}: You deposited ${movement}`);
-  } else {
-    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
-  }
-}
-
-console.log('------------------FOR EACH------------------');
-// doesn't have continue or break statements.
-movements.forEach(function (movement, index, array) {
-  if (movement > 0) {
-    console.log(`Movement ${index + 1}: You deposited ${movement}`);
-  } else {
-    console.log(`Movement ${index + 1}: You withdrew ${Math.abs(movement)}`);
-  }
-});
-// 0: funtion(200)
-// 1: funtion(450)
-// 2: funtion(400)
-// ...
+//
