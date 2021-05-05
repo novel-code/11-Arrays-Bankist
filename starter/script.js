@@ -71,9 +71,11 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+/*
+// Lec 141 Simple Array Methods
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
 // SLICE (doesn't alter the orginal array)
@@ -105,3 +107,28 @@ console.log([...arr, ...arr2]);
 
 // JOIN
 console.log(letters.join(' - '));
+*/
+// Lec 142 Looping Arrays: forEach
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// for (const movement of movements) {
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+console.log('------------------FOR EACH------------------');
+// doesn't have continue or break statements.
+movements.forEach(function (movement, index, array) {
+  if (movement > 0) {
+    console.log(`Movement ${index + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${index + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+});
+// 0: funtion(200)
+// 1: funtion(450)
+// 2: funtion(400)
+// ...
