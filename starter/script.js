@@ -61,6 +61,7 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// Lec 145 Creating DOM Elements ^
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
   movements.forEach(function (mov, i) {
@@ -78,9 +79,107 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(
-  account1.movements
-); /*
+// Lec 149 Computing Usernames
+displayMovements(account1.movements);
+
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} €`;
+};
+calcDisplayBalance(account1.movements);
+
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLocaleLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+
+const movements = [
+  200,
+  450,
+  -400,
+  3000,
+  -650,
+  -130,
+  70,
+  1300,
+]; /*
+// Lec 150 The Filter Method
+const deposites = movements.filter(function (mov, i, arr) {
+  return mov > 0;
+});
+console.log(movements);
+console.log(deposites);
+
+// const depositesFor = [];
+// for (const mov of movements) if (mov > 0) depositesFor.push(mov);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+// Lec 151 The Reduce Method
+// accumulator -------> SNOWBALL
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   console.log(`Iteration ${i}: ${acc}`);
+//   return acc + cur;
+// }, 0);
+
+const balance = movements.reduce((acc, cur, i, arr) => acc + cur, 0);
+console.log(balance);
+
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+// Moximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(max);
+*/
+
+/*
+// Lec 147 Data Transformations: map, filter, reduce pg no 50
+// Lec 148 The map Method
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUsd = 1.1;
+
+const movementsUSD = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+// const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+console.log(movements);
+console.log(movementsUSD);
+
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+  `Movement ${i + 1}: You ${
+    mov > 0 ? 'deposited' : 'withdrew'
+  } ${Math.abs(mov)}`
+  );
+  
+  console.log(movementsDescriptions);
+
+  // const movementsDescriptions = movements.map((mov, i, arr) => {
+//   return `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${
+//     mov > 0 ? mov : Math.abs(mov)
+//   }`;
+// });
+*/
+
+/*
 // Jonas method
 const checkDogs = function (dogsJulia, dogsKate) {
   const dogsJuliaCorrected = dogsJulia.slice();
@@ -100,7 +199,6 @@ checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 */
 
-// Lec 145 Creating DOM Elements ^
 // Lec 144 PROJECT: "Bankist" App (intro about project)
 
 /*
@@ -207,9 +305,56 @@ const checkDogs = function (arr1, arr2) {
     }
   });
 };
-console.log(`----------------TEST DATA 1--------------`);
-checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
-console.log(`----------------TEST DATA 2--------------`);
-checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+// console.log(`----------------TEST DATA 1--------------`);
+// checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+// console.log(`----------------TEST DATA 2--------------`);
+// checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+// Lec 152 Coding Challenge 2
+// My method
+
+const calcAverageHumanAge = function (ages) {
+  const dogAges = ages;
+  dogAges.forEach(function (age, i) {
+    if (age <= 2) {
+      dogAges[i] = 2 * age;
+    } else if (age > 2) {
+      dogAges[i] = 16 + age * 4;
+    }
+  });
+  console.log(dogAges);
+  const adults = dogAges.filter(function (ele, i) {
+    return ele >= 18;
+  });
+  console.log(adults);
+  const avg = adults.reduce(function (acc, cur, i, arr) {
+    return acc + cur;
+  }, 0) / adults.length;
+  return avg;
+};
+console.log(`--------------TEST DATA 1-------------`);
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(`--------------TEST DATA 2-------------`);
+console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+// Jonas method
+
+const calcAverageHumanAge = function (ages) {
+  const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
+  const adults = humanAges.filter(age => age >= 18);
+  // const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
+  const average = adults.reduce(
+    (acc, age, i, arr) => acc + age / arr.length,
+    0
+  );
+
+  // 2 3. (2+3)/2 = 2.5 === 2/2 + 3/2 = 2.5
+
+  return average;
+};
+const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+console.log(avg1);
+console.log(avg2);
 */
-// Lec 147 Data Transformations: map, filter, reduce.
+// Lec 153 The Magic of Chaining Methods
