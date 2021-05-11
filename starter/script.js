@@ -607,9 +607,25 @@ console.log([...arr, ...arr2]);
 // JOIN
 console.log(letters.join(' - '));
 */
+
+/*
+// Lec 153 The Magic of Chaining Methods
+const eurToUsd = 1.1;
+console.log(movements);
+
+// PIPELINE
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd)
+  // .map((mov, i, arr) => {
+  // console.log(arr);
+  // return mov * eurToUsd;
+  // })
+  .reduce((acc, cur) => acc + cur, 0);
+console.log(totalDepositsUSD);
+*/
 /*
 // Lec 146 Coding Challenge 1
-
 const checkDogs = function (arr1, arr2) {
   const dogsJulia = arr1;
   const dogsKate = arr2;
@@ -693,20 +709,118 @@ const jonasChain = ages =>
     .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
 // adults.length  wouldn't work here
 console.log(jonasChain([5, 2, 4, 1, 15, 8, 3]));
-*/
-/*
-// Lec 153 The Magic of Chaining Methods
-const eurToUsd = 1.1;
-console.log(movements);
 
-// PIPELINE
-const totalDepositsUSD = movements
-  .filter(mov => mov > 0)
-  .map(mov => mov * eurToUsd)
-  // .map((mov, i, arr) => {
-  // console.log(arr);
-  // return mov * eurToUsd;
-  // })
-  .reduce((acc, cur) => acc + cur, 0);
-console.log(totalDepositsUSD);
+
+// Lec 165 Coding Challenge 4
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+// task 1
+dogs.forEach(function (dog) {
+  dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28);
+});
+console.log(dogs);
+
+// task 1 jonas
+
+// dogs.forEach(dog=> dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28))
+
+// task 2
+const sara = dogs.find(function (cur) {
+  return cur.owners.includes('Sarah');
+});
+if (sara.curFood > sara.recommendedFood + sara.recommendedFood / 10) {
+  console.log(`eating too much`);
+} else if (sara.curFood < sara.recommendedFood - sara.recommendedFood / 10) {
+  console.log('eating too little');
+}
+
+// task 2 jonas
+// const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+// console.log(dogSarah);
+// console.log(
+//   `Sarah's dog is eating ${
+//     dogSarah.curFood > dogSarah.recommendedFood ? 'much' : 'little'
+//   }`
+// );
+
+// task 3
+
+const ownersEatTooMuch = dogs
+  .filter(
+    (dog, i) => dog.curFood > dog.recommendedFood + dog.recommendedFood / 10
+  )
+  .flatMap(obj => obj.owners);
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recommendedFood - dog.recommendedFood / 10)
+  .flatMap(obj => obj.owners);
+
+console.log(ownersEatTooMuch);
+console.log(ownersEatTooLittle);
+
+// task 3 jonas
+// const ownersEatTooMuch = dogs
+//   .filter(dog => dog.curFood > dog.recommendedFood)
+//   .flatMap(dog => dog.owners);
+// // .flat();
+// console.log(ownersEatTooMuch);
+
+// const ownersEatTooLittle = dogs
+//   .filter(dog => dog.curFood < dog.recommendedFood)
+//   .flatMap(dog => dog.owners);
+// // .flat();
+// console.log(ownersEatTooLittle);
+
+// 4
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too Little!`);
+// 5
+console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+// 6
+console.log(
+  dogs.some(
+    dog =>
+      dog.curFood < dog.recommendedFood + dog.recommendedFood / 10 &&
+      dog.curFood > dog.recommendedFood - dog.recommendedFood / 10
+  )
+);
+// 6 jonas
+const checkEatingOkay = dog =>
+  dog.curFood > dog.recommendedFood * 0.9 &&
+  dog.curFood < dog.recommendedFood * 1.1;
+
+console.log(dogs.some(checkEatingOkay));
+// 7
+const okFood = dogs.filter(dog => {
+  if (
+    dog.curFood < dog.recommendedFood + dog.recommendedFood / 10 &&
+    dog.curFood > dog.recommendedFood - dog.recommendedFood / 10
+  ) {
+    return dog;
+  }
+});
+console.log(okFood);
+// 7 jonas
+console.log(dogs.filter(checkEatingOkay));
+
+// 8
+const dogsSorted = dogs
+  .slice()
+  .sort(
+    (prevDog, prestDog) => prevDog.recommendedFood - prestDog.recommendedFood
+  );
+console.log(dogsSorted);
+
+// 8 jonas
+const dogsCopy = dogs
+  .slice()
+  .sort((a, b) => a.recommendedFood - b.recommendedFood);
+
+console.log(dogsCopy);
+
 */
+// Section 11 Over
